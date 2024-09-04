@@ -1,0 +1,41 @@
+{
+  "name": "dynamic-form-component",
+  "version": "1.0.12",
+  "description": "A dynamic form component for React that renders forms based on provided configuration.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-hook-form": "^7.0.0",
+    "react-icons": "^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "react-hook-form": "^7.0.0",
+    "react-icons": "^4.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "author": "Shrey Purohit",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShreyPurohit/Medium/tree/6c29c1c77ee5a29c4b5915e6669c28449931dbbe/React-Projects/dynamic-form-medium"
+  },
+  "keywords": [
+    "react",
+    "form",
+    "dynamic",
+    "react-hook-form",
+    "typescript"
+  ]
+}
