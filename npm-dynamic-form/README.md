@@ -1,6 +1,8 @@
 # Dynamic Form Component
 
-A highly customizable and easy-to-use dynamic form component built with React, TypeScript, and React Hook Form. This component allows you to generate a form dynamically based on an array of field configurations, making it suitable for various use cases.
+A highly customizable and easy-to-use dynamic form component built with React, TypeScript, and React Hook Form. This component allows you to generate a form dynamically based on an array of field configurations, making it suitable for various use cases. Compatible with Tailwind CSS And Bootstrap.
+
+## Output
 
 ## Installation
 To install the package, run:
@@ -26,10 +28,23 @@ npm install react react-dom react-hook-form react-icons
 import DynamicForm, { IFormField } from 'dynamic-form-component';
 ```
 ### Example Usage
+
+`Important Note`: If you are using Tailwind Css, Update your `tailwind.config.js` file to:
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/dynamic-form-component/**/*.js"
+  ]
+  ...Other configurations
+}
+``` 
+
 Below is an example of how to use the `DynamicForm` component in your react project:
 ```js
 import DynamicForm, { IFormField } from 'dynamic-form-component';
-import { RegisterOptions } from 'react-hook-form';
 import { AiOutlineLock, AiOutlineMail, AiOutlineNumber, AiOutlineUser } from 'react-icons/ai';
 
 const App = () => {
@@ -128,9 +143,9 @@ const App = () => {
     return (
         <div>
             <h1>Dynamic Form Example</h1>
-            // **If You Are Using Bootstrap CSS Then**,
+            {/* If You Are Using Bootstrap CSS Then */}
             <DynamicForm fields={formFields} onSubmit={handleFormSubmit} cssFramework="bootstrap" />
-            // **If You Are Using Tailwind CSS Then**,
+            {/* If You Are Using Tailwind CSS Then */}
             <DynamicForm fields={formFields} onSubmit={handleFormSubmit} cssFramework="tailwind" />
         </div>
     )
@@ -138,6 +153,7 @@ const App = () => {
 
 export default App
 ```
+
 ### Field Configuration
 * id: Unique identifier for the field.
 * errorId: Identifier for displaying error messages.

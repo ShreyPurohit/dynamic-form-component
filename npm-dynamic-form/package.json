@@ -1,6 +1,6 @@
 {
   "name": "dynamic-form-component",
-  "version": "1.0.2",
+  "version": "1.0.22",
   "description": "A dynamic form component for React that renders forms based on provided configuration.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,18 +8,18 @@
     "build": "tsc",
     "prepare": "npm run build"
   },
-  "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-hook-form": "^7.0.0",
-    "react-icons": "^4.0.0"
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "react-icons": "^5.3.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "react-hook-form": "^7.0.0",
-    "react-icons": "^4.0.0"
+    "react-hook-form": "^7.53.0",
+    "react-icons": "^5.3.0",
+    "typescript": "^5.5.4"
   },
   "files": [
     "dist",
@@ -29,8 +29,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ShreyPurohit/Medium/tree/6c29c1c77ee5a29c4b5915e6669c28449931dbbe/React-Projects/dynamic-form-medium",
-    "directory": "https://github.com/ShreyPurohit/Medium/tree/6c29c1c77ee5a29c4b5915e6669c28449931dbbe/React-Projects/dynamic-form-medium"
+    "url": "https://github.com/ShreyPurohit/Medium/tree/main/React-Projects/dynamic-form-medium"
   },
   "keywords": [
     "react",
