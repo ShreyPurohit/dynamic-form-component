@@ -3,6 +3,8 @@
 A highly customizable and easy-to-use dynamic form component built with React, TypeScript, and React Hook Form. This component allows you to generate a form dynamically based on an array of field configurations, making it suitable for various use cases. Compatible with Tailwind CSS And Bootstrap.
 
 ## Output
+!["Dynamic Form Output"](https://github.com/user-attachments/assets/c7dee211-25c4-4d89-bb80-f06a0618a773)
+
 
 ## Installation
 To install the package, run:
