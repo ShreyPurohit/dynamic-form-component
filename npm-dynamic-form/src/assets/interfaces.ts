@@ -15,5 +15,6 @@ export interface IFormField {
 
 export interface DynamicFormProps {
     fields: IFormField[];
-    onSubmit: (data: FieldValues) => void;
+    onSubmit: (data: Record<string, any>) => void;
+    cssFramework: 'tailwind' | 'bootstrap'
 }

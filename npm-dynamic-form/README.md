@@ -119,14 +119,19 @@ const App = () => {
         },
     ];
 
+    // Form Submission Function
     const handleFormSubmit = (data: Record<string, any>) => {
         console.log('Form Data:', data);
     };
 
+    // Return Based On Type Of CSS ('Tailwind CSS' || 'Bootstrap')
     return (
         <div>
             <h1>Dynamic Form Example</h1>
-            <DynamicForm fields={formFields} onSubmit={handleFormSubmit} />
+            // **If You Are Using Bootstrap CSS Then**,
+            <DynamicForm fields={formFields} onSubmit={handleFormSubmit} cssFramework="bootstrap" />
+            // **If You Are Using Tailwind CSS Then**,
+            <DynamicForm fields={formFields} onSubmit={handleFormSubmit} cssFramework="tailwind" />
         </div>
     )
 }

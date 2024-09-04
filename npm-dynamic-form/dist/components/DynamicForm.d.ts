@@ -1,4 +1,4 @@
-import { DynamicFormProps } from '../assets/interfaces';
 import React from 'react';
-declare const DynamicForm: React.FC<DynamicFormProps>;
-export default DynamicForm;
+import { DynamicFormProps } from '../assets/interfaces';
+declare const CustomizedDynamicForm: React.FC<DynamicFormProps>;
+export default CustomizedDynamicForm;
