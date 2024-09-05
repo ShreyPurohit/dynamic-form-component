@@ -1,5 +1,5 @@
 import DynamicForm from './components/DynamicForm'
-import { IFormField, DynamicFormProps } from './assets/interfaces'
+import { IFormField, DynamicFormProps, ISubmitButtonProps } from './assets/interfaces'
 
 export default DynamicForm
-export { IFormField, DynamicFormProps }
+export { IFormField, DynamicFormProps, ISubmitButtonProps }

@@ -2,19 +2,38 @@ import { RegisterOptions, FieldValues } from "react-hook-form";
 
 export interface IFormField {
     id: string;
-    errorId: string;
+    error: {
+        id: string,
+        css: string
+    };
     label: string;
-    type: 'text' | 'number' | 'email' | 'password' | 'checkbox' | 'select';
+    type: 'text' | 'number' | 'email' | 'password' | 'checkbox' | 'select' | 'textarea' | 'radio';
     options?: { value: string; label: string }[];
     placeholder?: string;
     required?: boolean;
     validation?: RegisterOptions;
     icon?: React.ReactNode;
-    value?: string
+    value?: string,
+    css: {
+        wrapper?: string,
+        label?: string,
+        input: string,
+        icon?: string,
+        error?: string
+    }
+}
+
+export interface ISubmitButtonProps {
+    id: string
+    label: string,
+    type: 'button' | 'submit' | 'reset',
+    css: string,
+    disabled?: boolean,
+    onClick?: () => void
 }
 
 export interface DynamicFormProps {
     fields: IFormField[];
-    onSubmit: (data: Record<string, any>) => void;
-    cssFramework: 'tailwind' | 'bootstrap'
+    onSubmit: (data: FieldValues) => void;
+    button: ISubmitButtonProps
 }

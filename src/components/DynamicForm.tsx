@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { DynamicFormProps, IFormField } from '../assets/interfaces';
 
-const CustomizedDynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, cssFramework }) => {
+const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button }) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'all' });
@@ -15,82 +15,105 @@ const CustomizedDynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, c
         const inputType = isPasswordField && showPassword ? 'text' : field.type;
 
         return (
-            <div id='input-wrapper' className={cssFramework === 'bootstrap' ? 'mb-3 w-1' : ''}>
-                <div id='input-container' className={cssFramework === 'bootstrap' ? 'input-group' : ''}>
-                    {
-                        field.type === 'checkbox' && field.options ? (
-                            <div className={cssFramework === 'bootstrap' ? 'row' : 'grid grid-cols-2 gap-4'}>
+            <div id='input-wrapper'>
+                <div id='input-container'>
+                    {field.type === 'checkbox' && field.options ? (
+                        <div className={field.css.wrapper}>
+                            {field.options.map(option => (
+                                <div id='checkBox_innerDiv' key={option.value}>
+                                    <label
+                                        htmlFor={`${field.id}-${option.value}`}>
+                                        {option.label}
+                                    </label>
+                                    <input
+                                        id={`${field.id}-${option.value}`}
+                                        {...register(field.id, { ...field.validation })}
+                                        type={field.type}
+                                        value={option.value}
+                                        className={field.css.input}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ) : field.type === 'select' ? (
+                        <select
+                            {...register(field.id, { ...field.validation })}
+                            id={field.id} className={field.css.input}
+                        >
+                            {field.options?.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    ) : field.type === 'textarea' ?
+                        <textarea {...register(field.id, { ...field.validation })}
+                            id={field.id}
+                            placeholder={field.placeholder}
+                            className={field.css.input}
+                        >
+                        </textarea>
+                        : (field.type === 'radio' && field.options ? (
+                            <div className={field.css.wrapper}>
                                 {field.options.map(option => (
-                                    <div key={option.value}
-                                        className={cssFramework === 'bootstrap' ? 'col-6 d-flex align-items-center' : 'flex gap-1 justify-center'}>
-                                        <label htmlFor={`${field.id}-${option.value}`} className={cssFramework === 'bootstrap' ? 'form-check-label ms-2' : 'ml-2'}>{option.label} :</label>
-                                        <input
-                                            id={`${field.id}-${option.value}`}
+                                    <div key={option.value}>
+                                        <label htmlFor={`${field.id}-${option.value}`}>
+                                            {option.label}
+                                        </label>
+                                        <input id={`${field.id}-${option.value}`}
                                             {...register(field.id, { ...field.validation })}
-                                            type={field.type}
+                                            type="radio"
                                             value={option.value}
-                                            className={cssFramework === 'bootstrap' ? 'form-check-input ms-2' : ''}
+                                            className={field.css.input}
                                         />
                                     </div>
                                 ))}
-                            </div >
-                        ) : field.type === 'select' ? (
-                            <select
-                                {...register(field.id, { ...field.validation })}
-                                id={field.id}
-                                className={cssFramework === 'bootstrap' ? 'form-select' : "border rounded w-full sm:py-2 sm:px-3 py-1 px-3 text-stone-600 leading-tight focus:outline-none text-sm sm:text-base"}
-                            >
-                                {field.options?.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                        ) : (
-                            <div className={cssFramework === 'bootstrap' ? 'input-group' : 'flex items-center p-1 border'}>
-                                {field.icon && <div className={cssFramework === 'bootstrap' ? 'input-group-text' : 'ml-2'}>{field.icon}</div>}
-                                <input
-                                    id={field.id}
-                                    {...register(field.id, { ...field.validation })}
-                                    type={inputType}
-                                    placeholder={field.placeholder}
-                                    className={cssFramework === 'bootstrap' ? `form-control ${error ? 'is-invalid' : ''}` : 'rounded w-full sm:py-2 sm:px-3 py-1 px-2 text-stone-600 leading-tight focus:outline-none text-sm sm:text-base'}
-                                />
-                                {isPasswordField && (
-                                    <div
-                                        id="prop-icon"
-                                        className={cssFramework === 'bootstrap' ? 'input-group-text' : 'hover:cursor-pointer mr-3'}
-                                        onClick={() => setShowPassword(!showPassword)}
-                                    >
-                                        {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-                                    </div>
-                                )}
                             </div>
-                        )
-                    }
+                        ) : < div className={field.css.wrapper}>
+                            {field.icon && <div className={field.css.icon}>{field.icon}</div>}
+                            <input
+                                id={field.id}
+                                {...register(field.id, { ...field.validation })}
+                                type={inputType}
+                                placeholder={field.placeholder}
+                                className={field.css.input}
+                            />
+                            {isPasswordField && (
+                                <div
+                                    id="prop-icon"
+                                    className={field.css.icon}
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                                </div>
+                            )}
+                        </div>
+                        )}
                 </div>
-                {error && <div className={cssFramework === 'bootstrap' ? 'text-danger' : 'text-orange-500 italic text-sm sm:text-base'} id={field.errorId}>{error}</div>}
+                {error && <span className={field.error.css} id={field.error.id}>{error}</span>}
             </div >
         );
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={cssFramework === 'bootstrap' ? 'card p-4 w-50 m-auto' : 'flex flex-col md:w-1/2 m-auto p-5 gap-5 md:mt-5 md:border border-slate-400 rounded-lg'}>
+        <form className='main_form' onSubmit={handleSubmit(onSubmit)}>
             {fields.map((field) => (
-                <div key={field.id} className={cssFramework === 'bootstrap' ? 'mb-3' : ''}>
-                    <label htmlFor={field.id} className={cssFramework === 'bootstrap' ? "form-label" : "block text-gray-700 sm:text-lg font-bold mb-2"}>{field.label}</label>
+                <div key={field.id}>
+                    <label className={field.css.label} htmlFor={field.id}>{field.label}</label>
                     {renderField(field)}
                 </div>
             ))}
             <button
-                type='submit'
-                disabled={Object.keys(errors).length ? true : false}
-                className={cssFramework === 'bootstrap' ? 'btn btn-primary w-100 mt-3' : 'px-4 py-2 bg-slate-400 hover:bg-slate-600 hover:transition hover:text-white rounded-lg disabled:bg-gray-600 disabled:hover:bg-gray-600 disabled:text-white'}
+                id={button.id}
+                type={button.type}
+                className={button.css}
+                disabled={button.disabled}
+                onClick={button.onClick}
             >
-                Submit
+                {button.label}
             </button>
         </form >
     );
 };
 
-export default CustomizedDynamicForm;
+export default DynamicForm;

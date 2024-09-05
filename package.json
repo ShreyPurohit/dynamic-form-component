@@ -1,6 +1,6 @@
 {
   "name": "dynamic-form-component",
-  "version": "1.0.221",
+  "version": "1.1.0",
   "description": "A dynamic form component for React that renders forms based on provided configuration.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -29,8 +29,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ShreyPurohit/Medium/tree/main/React-Projects/dynamic-form-medium"
+    "url": "https://github.com/ShreyPurohit/dynamic-form-component"
   },
+  "homepage": "https://github.com/ShreyPurohit/dynamic-form-component#readme",
   "keywords": [
     "react",
     "form",
