@@ -36,23 +36,10 @@ import DynamicForm, { IFormField, ISubmitButtonProps } from 'dynamic-form-compon
 ```
 ### Example Usage
 
-`Important Note`: If you are using Tailwind Css, Update your `tailwind.config.js` file to:
-```js
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/dynamic-form-component/**/*.js"
-  ]
-  ...Other configurations
-}
-``` 
-
 Below is an example of how to use the `DynamicForm` component in your react project:
 ```js
 import { AiOutlineUser } from 'react-icons/ai';
-import DynamicForm, { IFormField, IButtonProps } from 'your-dynamic-form-package';
+import DynamicForm, { IFormField, ISubmitButtonProps } from 'your-dynamic-form-package';
 
 function App() {
     const formFields: IFormField[] = [
@@ -84,12 +71,13 @@ function App() {
         // Add more form fields here
     ];
 
-    const button: IButtonProps = {
+    const button: ISubmitButtonProps = {
+        id: "submitBtn",
         label: 'Submit',
         type: 'submit',
         css: 'btn btn-primary', //Css For Your Button
-        disabled: false,,
-        onClick?: () => {console.log("Form Button Clicked")}
+        disabled: false,
+        onClick: () => {console.log("Form Button Clicked")}
     };
 
     const handleSubmit = (data: Record<string, any>) => {
