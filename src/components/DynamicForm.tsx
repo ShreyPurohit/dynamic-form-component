@@ -22,7 +22,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button }) =
             <div id='input-wrapper'>
                 <div id='input-container'>
                     {field.type === 'checkbox' && field.options ? (
-                        <div className={field.css.wrapper}>
+                        <div className={field.css?.wrapper}>
                             {field.options.map((option) => (
                                 <div id='checkBox_innerDiv' key={option.value}>
                                     <label htmlFor={`${field.id}-${option.value}`}>{option.label}</label>
@@ -31,7 +31,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button }) =
                                         {...register(field.id, { ...field.validation })}
                                         type={field.type}
                                         value={option.value}
-                                        className={field.css.input}
+                                        className={field.css?.input}
                                     />
                                 </div>
                             ))}
@@ -40,7 +40,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button }) =
                         <select
                             {...register(field.id, { ...field.validation })}
                             id={field.id}
-                            className={field.css.input}
+                            className={field.css?.input}
                         >
                             {field.options?.map((option) => (
                                 <option key={option.value} value={option.value}>
@@ -53,10 +53,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button }) =
                             {...register(field.id, { ...field.validation })}
                             id={field.id}
                             placeholder={field.placeholder}
-                            className={field.css.input}
+                            className={field.css?.input}
                         ></textarea>
                     ) : field.type === 'radio' && field.options ? (
-                        <div className={field.css.wrapper}>
+                        <div className={field.css?.wrapper}>
                             {field.options.map((option) => (
                                 <div key={option.value}>
                                     <label htmlFor={`${field.id}-${option.value}`}>{option.label}</label>
@@ -65,25 +65,25 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button }) =
                                         {...register(field.id, { ...field.validation })}
                                         type='radio'
                                         value={option.value}
-                                        className={field.css.input}
+                                        className={field.css?.input}
                                     />
                                 </div>
                             ))}
                         </div>
                     ) : (
-                        <div className={field.css.wrapper}>
-                            {field.icon && <div className={field.css.icon}>{field.icon}</div>}
+                        <div className={field.css?.wrapper}>
+                            {field.icon && <div className={field.css?.icon}>{field.icon}</div>}
                             <input
                                 id={field.id}
                                 {...register(field.id, { ...field.validation })}
                                 type={inputType}
                                 placeholder={field.placeholder}
-                                className={field.css.input}
+                                className={field.css?.input}
                             />
                             {isPasswordField && (
                                 <div
                                     id='prop-icon'
-                                    className={field.css.icon}
+                                    className={field.css?.icon}
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
@@ -105,7 +105,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button }) =
         <form className='main_form' onSubmit={handleSubmit(onSubmit)}>
             {fields.map((field) => (
                 <div key={field.id}>
-                    <label className={field.css.label} htmlFor={field.id}>
+                    <label className={field.css?.label} htmlFor={field.id}>
                         {field.label}
                     </label>
                     {renderField(field)}

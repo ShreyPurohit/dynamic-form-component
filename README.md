@@ -18,7 +18,7 @@ Ensure you have the following peer dependencies installed:
 
 You can install them with:
 ```bash
-npm install react react-dom react-hook-form react-icons
+npm install react-hook-form react-icons
 ```
 
 ## Features
@@ -38,17 +38,15 @@ import DynamicForm, { IFormField, ISubmitButtonProps } from 'dynamic-form-compon
 
 Below is an example of how to use the `DynamicForm` component in your react project:
 ```js
-import { AiOutlineUser } from 'react-icons/ai';
-import DynamicForm, { IFormField, ISubmitButtonProps } from 'your-dynamic-form-package';
-
 function App() {
     const formFields: IFormField[] = [
         {
             id: 'name',
             label: 'Name',
             error: {
-                id: "nameErr",
-                css: "text-danger" // Add Bootstrap Or Tailwind CSS here
+                id: 'nameErr',
+                // Add Bootstrap Or Tailwind CSS here
+                css: 'text-red-500 text-sm',
             },
             type: 'text',
             placeholder: 'Enter your name',
@@ -60,51 +58,82 @@ function App() {
                 },
             },
             icon: <AiOutlineUser />,
-            css: { // Add Bootstrap Or Tailwind CSS here
-                wrapper: 'flex items-center p-1 border',
-                label: 'block text-gray-700 text-lg font-bold mb-2',
-                input: 'rounded w-full py-2 px-3 text-gray-700',
+            css: {
+                // Add Bootstrap Or Tailwind CSS here
+                wrapper: 'flex items-center p-1 border mb-2',
+                label: 'block text-gray-700 sm:text-lg font-bold mb-2',
+                input:
+                    'rounded w-full sm:py-2 sm:px-3 py-1 px-2 text-stone-600 leading-tight focus:outline-none text-sm sm:text-base',
                 icon: 'ml-2',
-                error: 'text-red-500 text-sm',
+            },
+        },
+        {
+            id: 'password',
+            error: {
+                id: 'passErr',
+                // Add Bootstrap Or Tailwind CSS here
+                css: 'text-red-500 text-sm',
+            },
+            label: 'Password',
+            type: 'password',
+            placeholder: 'Enter your Password',
+            validation: {
+                required: 'Password is required',
+            },
+            icon: <AiOutlineLock />,
+            css: {
+                wrapper: 'flex items-center p-1 border mb-2',
+                label: 'block text-gray-700 sm:text-lg font-bold mb-2',
+                input:
+                    'rounded w-full sm:py-2 sm:px-3 py-1 px-2 text-stone-600 leading-tight focus:outline-none text-sm sm:text-base',
+                icon: 'ml-2',
             },
         },
         // Add more form fields here
     ];
 
     const button: ISubmitButtonProps = {
-        id: "submitBtn",
+        id: "SubmitBtn",
         label: 'Submit',
         type: 'submit',
-        css: 'btn btn-primary', //Css For Your Button
+        css: 'px-4 py-3 rounded-md bg-green-200 mt-5 hover:bg-green-500 transition w-full', //Css For Your Button
         disabled: false,
-        onClick: () => {console.log("Form Button Clicked")}
+        onClick: () => { console.log("Form Button Clicked") }
     };
 
     const handleSubmit = (data: Record<string, any>) => {
         console.log('Form data:', data);
     };
 
-    return <DynamicForm fields={ formFields } onSubmit={ handleSubmit } button={ button } />;
+    return (
+        <div className="w-1/4 m-auto mt-5 border p-2 border-slate-300 rounded-xl">
+            <h1 className="uppercase text-3xl font-bold tracking-wide text-center text-stone-500 border-b-2 mb-2">Dynamic Form</h1>
+            <DynamicForm fields={formFields} button={button} onSubmit={handleSubmit} />
+        </div>
+    )
 }
 
-export default App;
+export default App
 ```
+
+#### For All Fields Usage With Tailwind, Visit : [Usage With Tailwind CSS](https://stackblitz.com/edit/vitejs-vite-sz43gb?file=src%2FApp.tsx)
+#### For All Fields Usage With Bootstrap, Visit : [Usage With Bootstrap CSS](https://stackblitz.com/edit/vitejs-vite-pwkgpx?file=src%2FApp.tsx)
 
 ### Field Configuration
 __`Form Input Fields`__
 
-| Property      | Type                                                                                                           | Description                                                                                                                                                                                  | Required |
-| ------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `id`          | `string`                                                                                                       | Unique identifier for the form field.                                                                                                                                                        | ✅        |
-| `errorId`     | `{id: string, css: string}`                                                                                    | Options for ID and CSS for the error message element.                                                                                                                                        | ✅        |
-| `label`       | `string`                                                                                                       | Label text for the form field.                                                                                                                                                               | ✅        |
-| `type`        | `'text'` \| `'number'` \| `'email'` \| `'password'` \| `'checkbox'` \| `'select'` \| `'radio'` \| `'textarea'` | The type of input field, determining how the field will behave and be rendered.                                                                                                              | ✅        |
-| `options`     | `{ value: string; label: string }[]`                                                                           | Options for `select`, `checkbox`, or `radio` fields. Required when using these field types.                                                                                                  | ❌        |
-| `placeholder` | `string`                                                                                                       | Placeholder text for `text`, `number`, `email`, `password`, and `textarea` input fields.                                                                                                     | ❌        |
-| `required`    | `boolean`                                                                                                      | Indicates whether the form field is required to be filled.                                                                                                                                   | ❌        |
-| `validation`  | `RegisterOptions`                                                                                              | Validation rules for the field using `react-hook-form`'s `RegisterOptions`. This allows you to specify rules like `required`, `maxLength`, etc.                                              | ❌        |
-| `icon`        | `React.ReactNode`                                                                                              | Optional icon to be displayed with the input field. Can use components from libraries like `react-icons`.                                                                                    | ❌        |
-| `value`       | `string`                                                                                                       | Default value of the field if it needs to be pre-filled.                                                                                                                                     | ❌        |
+| Property      | Type                                                                                                           | Description                                                                                                                                                                                        | Required |
+| ------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `id`          | `string`                                                                                                       | Unique identifier for the form field.                                                                                                                                                              | ✅        |
+| `error`     | `{id: string, css: string}`                                                                                    | Options for ID and CSS for the error message element.                                                                                                                                              | ✅        |
+| `label`       | `string`                                                                                                       | Label text for the form field.                                                                                                                                                                     | ✅        |
+| `type`        | `'text'` \| `'number'` \| `'email'` \| `'password'` \| `'checkbox'` \| `'select'` \| `'radio'` \| `'textarea'` | The type of input field, determining how the field will behave and be rendered.                                                                                                                    | ✅        |
+| `options`     | `{ value: string; label: string }[]`                                                                           | Options for `select`, `checkbox`, or `radio` fields. Required when using these field types.                                                                                                        | ❌        |
+| `placeholder` | `string`                                                                                                       | Placeholder text for `text`, `number`, `email`, `password`, and `textarea` input fields.                                                                                                           | ❌        |
+| `required`    | `boolean`                                                                                                      | Indicates whether the form field is required to be filled.                                                                                                                                         | ❌        |
+| `validation`  | `RegisterOptions`                                                                                              | Validation rules for the field using `react-hook-form`'s `RegisterOptions`. This allows you to specify rules like `required`, `maxLength`, etc.                                                    | ❌        |
+| `icon`        | `React.ReactNode`                                                                                              | Optional icon to be displayed with the input field. Can use components from libraries like `react-icons`.                                                                                          | ❌        |
+| `value`       | `string`                                                                                                       | Default value of the field if it needs to be pre-filled.                                                                                                                                           | ❌        |
 | `css`         | `{ wrapper: string, label?: string, input: string, icon?: string, error?: string }`                            | An object for defining the CSS classes used for styling different parts of the field, including the wrapper(containing the _icon_, _label_, _input field_), label, input, icon, and error message. | ✅        |
 
 __`Button Props`__

@@ -4,7 +4,7 @@ export interface IFormField {
     id: string
     error: {
         id: string
-        css: string
+        css?: string
     }
     label: string
     type: 'text' | 'number' | 'email' | 'password' | 'checkbox' | 'select' | 'textarea' | 'radio'
@@ -14,10 +14,10 @@ export interface IFormField {
     validation?: RegisterOptions
     icon?: React.ReactNode
     value?: string
-    css: {
+    css?: {
         wrapper?: string
         label?: string
-        input: string
+        input?: string
         icon?: string
         error?: string
     }
