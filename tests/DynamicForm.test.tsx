@@ -21,6 +21,10 @@ describe('Dynamic Form Component', () => {
                     value: 20,
                     message: 'Name must be less than 20 characters',
                 },
+                minLength: {
+                    value: 4,
+                    message: 'Name must be at least 4 characters',
+                },
             },
             icon: <AiOutlineUser />,
             css: {
@@ -29,6 +33,7 @@ describe('Dynamic Form Component', () => {
                 input: 'input-class',
                 icon: 'icon-class',
             },
+            defaultValue: 'John Doe', // Default value added
         },
         {
             id: 'email',
@@ -79,10 +84,32 @@ describe('Dynamic Form Component', () => {
             type: 'number',
             placeholder: 'Enter your age',
             validation: {
+                pattern: {
+                    value: /^[0-9]*$/,
+                    message: 'Please Input Only Numbers',
+                },
                 min: {
                     value: 18,
                     message: 'You must be at least 18 years old',
                 },
+            },
+            css: {
+                wrapper: 'input-wrapper-class',
+                label: 'label-class',
+                input: 'input-class',
+            },
+        },
+        {
+            id: 'hobbies',
+            error: { id: 'hobbiesErr', css: '' },
+            label: 'Hobbies',
+            type: 'checkbox',
+            options: [
+                { value: 'reading', label: 'Reading' },
+                { value: 'music', label: 'Music' },
+            ],
+            validation: {
+                required: 'At least one hobby must be selected',
             },
             css: {
                 wrapper: 'input-wrapper-class',
@@ -110,16 +137,17 @@ describe('Dynamic Form Component', () => {
             },
         },
         {
-            id: 'hobbies',
-            error: { id: 'hobbiesErr', css: '' },
-            label: 'Hobbies',
-            type: 'checkbox',
-            options: [
-                { value: 'reading', label: 'Reading' },
-                { value: 'music', label: 'Music' },
-            ],
+            id: 'bio',
+            error: { id: 'bioErr', css: '' },
+            label: 'Bio',
+            type: 'textarea',
+            placeholder: 'Tell us about yourself',
             validation: {
-                required: 'At least one hobby must be selected',
+                required: 'Bio is required',
+                minLength: {
+                    value: 5,
+                    message: 'Bio is required',
+                },
             },
             css: {
                 wrapper: 'input-wrapper-class',
@@ -128,13 +156,35 @@ describe('Dynamic Form Component', () => {
             },
         },
         {
-            id: 'bio',
-            error: { id: 'bioErr', css: '' },
-            label: 'Bio',
-            type: 'textarea',
+            id: 'defaultCheck',
+            error: { id: 'defaultCheckErr', css: '' },
+            label: 'Default Checked Checkbox',
+            type: 'checkbox',
+            options: [
+                { value: 'checkOpt1', label: 'Checkbox Option 1', defaultChecked: true },
+                { value: 'checkOpt2', label: 'Checkbox Option 2' },
+            ],
             placeholder: 'Tell us about yourself',
             validation: {
-                required: 'Bio is required',
+                required: 'At least one checkbox must be selected',
+            },
+            css: {
+                wrapper: 'input-wrapper-class',
+                label: 'label-class',
+                input: 'input-class',
+            },
+        },
+        {
+            id: 'defaultRadio',
+            error: { id: 'defaultRadioErr', css: '' },
+            label: 'Default Radio',
+            type: 'radio',
+            options: [
+                { value: 'radOpt1', label: 'Radio Option 1', defaultChecked: true },
+                { value: 'radOpt2', label: 'Radio Option 2' },
+            ],
+            validation: {
+                required: 'Atleast one Option is required',
             },
             css: {
                 wrapper: 'input-wrapper-class',
@@ -148,7 +198,7 @@ describe('Dynamic Form Component', () => {
         id: 'buttonId',
         label: 'Submit',
         type: 'submit',
-        css: 'btn btn-primary', //Css For Your Button
+        css: 'btn btn-primary',
         disabled: false,
         onClick: () => {
             console.log('Form Button Clicked')
@@ -157,9 +207,18 @@ describe('Dynamic Form Component', () => {
 
     const mockSubmit = jest.fn()
 
-    test('renders text field and handles validation correctly', async () => {
-        render(<DynamicForm fields={formFields} onSubmit={mockSubmit} button={submitButton} />)
+    beforeEach(() => {
+        render(
+            <DynamicForm
+                fields={formFields}
+                onSubmit={mockSubmit}
+                button={submitButton}
+                layout={{ type: 'grid', css: 'grid-class' }}
+            />,
+        )
+    })
 
+    test('renders text field and handles validation correctly', async () => {
         const nameInput = screen.getByPlaceholderText('Enter your name')
         fireEvent.change(nameInput, { target: { value: 'John' } })
         fireEvent.blur(nameInput)
@@ -173,8 +232,6 @@ describe('Dynamic Form Component', () => {
     })
 
     test('renders email field and shows validation error for invalid email', async () => {
-        render(<DynamicForm fields={formFields} onSubmit={mockSubmit} button={submitButton} />)
-
         const emailInput = screen.getByPlaceholderText('Enter your email')
         fireEvent.change(emailInput, { target: { value: 'invalid-email' } })
         fireEvent.blur(emailInput)
@@ -184,8 +241,6 @@ describe('Dynamic Form Component', () => {
     })
 
     test('renders password field and shows error if password is too short', async () => {
-        render(<DynamicForm fields={formFields} onSubmit={mockSubmit} button={submitButton} />)
-
         const passwordInput = screen.getByPlaceholderText('Enter your password')
         fireEvent.change(passwordInput, { target: { value: '123' } })
         fireEvent.blur(passwordInput)
@@ -195,8 +250,6 @@ describe('Dynamic Form Component', () => {
     })
 
     test('renders number field and checks validation for minimum age', async () => {
-        render(<DynamicForm fields={formFields} onSubmit={mockSubmit} button={submitButton} />)
-
         const ageInput = screen.getByPlaceholderText('Enter your age')
         fireEvent.change(ageInput, { target: { value: 16 } })
         fireEvent.blur(ageInput)
@@ -206,8 +259,6 @@ describe('Dynamic Form Component', () => {
     })
 
     test('renders select field and requires value', async () => {
-        render(<DynamicForm fields={formFields} onSubmit={mockSubmit} button={submitButton} />)
-
         const selectInput = screen.getByLabelText('Gender')
         fireEvent.blur(selectInput)
 
@@ -216,8 +267,6 @@ describe('Dynamic Form Component', () => {
     })
 
     test('renders checkbox field and requires at least one option', async () => {
-        render(<DynamicForm fields={formFields} onSubmit={mockSubmit} button={submitButton} />)
-
         const checkboxInput = screen.getByLabelText('Reading')
         fireEvent.click(checkboxInput)
 
@@ -225,8 +274,6 @@ describe('Dynamic Form Component', () => {
     })
 
     test('renders textarea field and handles validation', async () => {
-        render(<DynamicForm fields={formFields} onSubmit={mockSubmit} button={submitButton} />)
-
         const bioInput = screen.getByPlaceholderText('Tell us about yourself')
         fireEvent.change(bioInput, { target: { value: '' } })
         fireEvent.blur(bioInput)
@@ -235,9 +282,31 @@ describe('Dynamic Form Component', () => {
         expect(bioError).toBeInTheDocument()
     })
 
-    test('calls onSubmit when all form fields are valid', async () => {
-        render(<DynamicForm fields={formFields} onSubmit={mockSubmit} button={submitButton} />)
+    test('renders default checked checkbox and allows unchecking', async () => {
+        const checkboxInput = screen.getByLabelText('Checkbox Option 1')
 
+        expect(checkboxInput).toBeChecked()
+
+        fireEvent.click(checkboxInput)
+        expect(checkboxInput).not.toBeChecked()
+
+        fireEvent.click(checkboxInput)
+        expect(checkboxInput).toBeChecked()
+    })
+
+    test('renders default radio button and allows selection', async () => {
+        const defaultRadio = screen.getByLabelText('Radio Option 1')
+        const secondRadio = screen.getByLabelText('Radio Option 2')
+
+        expect(defaultRadio).toBeChecked()
+        expect(secondRadio).not.toBeChecked()
+
+        fireEvent.click(secondRadio)
+        expect(secondRadio).toBeChecked()
+        expect(defaultRadio).not.toBeChecked()
+    })
+
+    test('calls onSubmit when all form fields are valid', async () => {
         fireEvent.change(screen.getByPlaceholderText('Enter your name'), { target: { value: 'John' } })
         fireEvent.change(screen.getByPlaceholderText('Enter your email'), { target: { value: 'john@example.com' } })
         fireEvent.change(screen.getByPlaceholderText('Enter your password'), { target: { value: 'password123' } })
@@ -250,5 +319,62 @@ describe('Dynamic Form Component', () => {
         fireEvent.click(button)
         await screen.findByText('Submit')
         expect(mockSubmit).toHaveBeenCalled()
+    })
+
+    test('name field accepts maximum length input', async () => {
+        const nameInput = screen.getByPlaceholderText('Enter your name')
+        fireEvent.change(nameInput, { target: { value: 'Johnathan Smith' } })
+        fireEvent.blur(nameInput)
+        expect(screen.queryByText(/name must be less than 20 characters/i)).not.toBeInTheDocument()
+    })
+
+    test('password field shows error for exactly 6 characters', async () => {
+        const passwordInput = screen.getByPlaceholderText('Enter your password')
+        fireEvent.change(passwordInput, { target: { value: '123456' } })
+        fireEvent.blur(passwordInput)
+        expect(screen.queryByText(/password must be at least 6 characters/i)).not.toBeInTheDocument()
+    })
+
+    test('renders age field and shows validation error for age below 18', async () => {
+        const ageInput = screen.getByPlaceholderText('Enter your age')
+
+        fireEvent.change(ageInput, { target: { value: '16' } })
+        fireEvent.blur(ageInput)
+
+        const minAgeError = await screen.findByText(/you must be at least 18 years old/i)
+        expect(minAgeError).toBeInTheDocument()
+    })
+
+    test('checkbox field requires at least one selection', async () => {
+        const hobbiesCheckbox1 = screen.getByLabelText('Reading')
+        const hobbiesCheckbox2 = screen.getByLabelText('Music')
+        fireEvent.click(hobbiesCheckbox1)
+        fireEvent.click(hobbiesCheckbox2)
+        fireEvent.click(hobbiesCheckbox1) // uncheck
+        fireEvent.click(hobbiesCheckbox2) // uncheck
+
+        const submitButton = screen.getByText('Submit')
+        fireEvent.click(submitButton)
+
+        const hobbiesError = await screen.findByText(/at least one hobby must be selected/i)
+        expect(hobbiesError).toBeInTheDocument()
+    })
+
+    test('gender selection requires a valid option', async () => {
+        const selectInput = screen.getByLabelText('Gender')
+        fireEvent.change(selectInput, { target: { value: '' } }) // select default
+        fireEvent.blur(selectInput)
+
+        const genderError = await screen.findByText(/gender is required/i)
+        expect(genderError).toBeInTheDocument()
+    })
+
+    test('bio field shows error for whitespace input', async () => {
+        const bioInput = screen.getByPlaceholderText('Tell us about yourself')
+        fireEvent.change(bioInput, { target: { value: '   ' } })
+        fireEvent.blur(bioInput)
+
+        const bioError = await screen.findByText(/bio is required/i)
+        expect(bioError).toBeInTheDocument()
     })
 })
