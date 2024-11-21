@@ -1,6 +1,16 @@
 import { FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form'
 
-type IFieldType = 'text' | 'number' | 'email' | 'password' | 'checkbox' | 'select' | 'textarea' | 'radio'
+type IFieldType =
+    | 'text'
+    | 'number'
+    | 'email'
+    | 'password'
+    | 'checkbox'
+    | 'select'
+    | 'textarea'
+    | 'radio'
+    | 'date'
+    | 'unsupported'
 
 export interface IFormField {
     id: string

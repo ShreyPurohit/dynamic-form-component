@@ -1,4 +1,9 @@
 # Dynamic Form Component
+![npm](https://img.shields.io/npm/dw/dynamic-form-component)
+![npm](https://img.shields.io/npm/v/dynamic-form-component)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Coverage Status](https://coveralls.io/repos/github/ShreyPurohit/dynamic-form-component/badge.svg?branch=main)](https://coveralls.io/github/ShreyPurohit/dynamic-form-component?branch=main)
+
 
 This package provides a fully customizable dynamic form component for React, built to support various input types and customizable layouts, including support for both Tailwind and Bootstrap. Users can pass an array of form fields and control various form behaviors, CSS classes, validation rules, default values and form submission handlers.
 
@@ -144,7 +149,6 @@ __`Form Input Fields`__
 | `css`         | `{ wrapper?: string, label?: string, input?: string, icon?: string }`                            | An object for defining the CSS classes used for styling different parts of the field, including the wrapper (containing the _icon_, _label_, _input field_), label, input, and icon | ❌        |
 | `error`       | `{ id?: string; css?: string }`                                                                                | Options for ID and CSS for the error message element.                                                                                                                                              | ❌        |
 | `defaultValue`| `string`                                                                                                       | Default value to be used when the field is initialized.                                                                                                                                           | ❌        |
-
 
 __`Button Props`__
 | Property   | Type                                  | Description                                                                                 | Required |

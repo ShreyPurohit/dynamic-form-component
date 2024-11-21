@@ -16,11 +16,18 @@ const TextInput: React.FC<InputProps> = ({ field, register, error }) => {
                     type={inputType}
                     placeholder={field.placeholder}
                     className={field.css?.input}
+                    aria-describedby={error ? `${field.id}Err` : undefined}
                 />
                 {field.type === 'password' && (
                     <div
                         role='button'
-                        onClick={() => setShowPassword && setShowPassword((prev) => !prev)}
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                setShowPassword((prev) => !prev)
+                            }
+                        }}
+                        tabIndex={0}
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                         {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
@@ -28,7 +35,7 @@ const TextInput: React.FC<InputProps> = ({ field, register, error }) => {
                 )}
             </div>
             {error && (
-                <span className={field.error?.css} id={field.error?.id}>
+                <span className={field.error?.css} id={`${field.error?.id}`}>
                     {error}
                 </span>
             )}

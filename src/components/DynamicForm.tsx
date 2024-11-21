@@ -6,6 +6,7 @@ import RadioInput from './ui/Radio'
 import SelectInput from './ui/Select'
 import TextArea from './ui/TextArea'
 import TextInput from './ui/TextInput'
+import DatePicker from './ui/DatePicker'
 
 const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button, layout }) => {
     const defaultValues = fields.reduce(
@@ -39,6 +40,8 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit, button, lay
                 return <SelectInput field={field} register={register} error={error} />
             case 'checkbox':
                 return <CheckboxInput field={field} register={register} error={error} />
+            case 'date':
+                return <DatePicker field={field} register={register} error={error} />
             case 'radio':
                 return <RadioInput field={field} register={register} error={error} />
             default:
